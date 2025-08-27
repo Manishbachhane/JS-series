@@ -8,3 +8,7 @@ console.log(balance.toString().length);//it convert number to string
 
 const hundreds = 100000000000;
 console.log(hundreds.toLocaleString("en-IN"));//it convert number to local format
+
+
+const number = Math.random();
+console.log(number);
