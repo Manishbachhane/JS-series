@@ -15,3 +15,11 @@ const add = (a, b) => {
 
 //implicit return
 const sub = (a, b) => a - b;
+
+//arrow function
+const mul = (a, b) => a * b;
+
+//implicit return
+const div = (a, b) => a / b;
+
+
