@@ -15,4 +15,3 @@ student1.displayInfo();
 student1.name = "Bob";
 student1.age = 23;
 student1.displayInfo();
-
