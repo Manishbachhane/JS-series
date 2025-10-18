@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cities List App</title>
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #000000;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      color: #00ff00;
+      overflow: hidden;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 30px 40px;
+      width: 400px;
+      border: 2px solid #00ff00;
+      border-radius: 15px;
+      box-shadow: 0 0 30px #06c306;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-bottom: 15px;
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00;
+      letter-spacing: 1px;
+    }
+
+    #alert {
+      display: block;
+      color: #9aff9a;
+      font-weight: 500;
+      margin-bottom: 10px;
+      min-height: 20px;
+    }
+
+    .input-section {
+      background: rgba(0, 30, 0, 0.9);
+      border: 1px solid #00ff00;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px #00ff0055;
+    }
+
+    label {
+      font-weight: 500;
+      color: #00ff66;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      width: 60%;
+      background-color: black;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      border-radius: 5px;
+      outline: none;
+      box-shadow: 0 0 5px #00ff00;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus {
+      box-shadow: 0 0 15px #00ff00;
+    }
+
+    button {
+      background-color: transparent;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      padding: 7px 15px;
+      margin: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      background-color: #00ff00;
+      color: black;
+      box-shadow: 0 0 15px #00ff00;
+    }
+
+    select {
+      width: 65%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #00ff00;
+      background-color: black;
+      color: #00ff00;
+      margin: 10px 0;
+      box-shadow: 0 0 10px #00ff0044;
+    }
+
+    .danger {
+      border: 1px solid #ff0000;
+      color: #ff0000;
+    }
+
+    .danger:hover {
+      background-color: #ff0000;
+      color: black;
+      box-shadow: 0 0 15px #ff0000;
+    }
+
+    #CityCount {
+      display: block;
+      margin-top: 8px;
+      color: #7fff7f;
+      font-weight: 600;
+      text-shadow: 0 0 8px #00ff00;
+    }
+
+  </style>
+
+  <script>
+    var cities = [];
+
+    function LoadCitys() {
+      document.getElementById("ListCity").innerHTML = "";
+      for (var city of cities) {
+        var option = document.createElement("option");
+        option.value = city;
+        option.text = city;
+        document.getElementById("ListCity").appendChild(option);
+      }
+      document.getElementById("CityCount").innerHTML = `Total Cities: ${cities.length}`;
+    }
+
+    function Bodyload() {
+      LoadCitys();
+    }
+
+    function AddClick() {
+      var CityName = document.getElementById("txtCity").value.trim();
+      if (CityName === "") {
+        document.getElementById("alert").innerHTML = "Please enter a city name!";
+        return;
+      }
+
+      if (cities.indexOf(CityName) == -1) {
+        cities.push(CityName);
+        document.getElementById("alert").innerHTML = ` ${CityName} added successfully!`;
+        LoadCitys();
+      } else {
+        document.getElementById("alert").innerHTML = ` ${CityName} already exists!`;
+      }
+      document.getElementById("txtCity").value = "";
+    }
+
+    function removeCity() {
+      var selectedCity = document.getElementById("ListCity").value;
+      if (!selectedCity) {
+        document.getElementById("alert").innerHTML = " Please select a city to remove!";
+        return;
+      }
+      var flag = confirm(`Delete ${selectedCity}?\nAre you sure?`);
+      if (flag) {
+        var index = cities.indexOf(selectedCity);
+        cities.splice(index, 1);
+        LoadCitys();
+        document.getElementById("alert").innerHTML = ` ${selectedCity} removed!`;
+      }
+    }
+
+    function removeAll() {
+      if (cities.length === 0) {
+        document.getElementById("alert").innerHTML = " No cities to clear!";
+        return;
+      }
+      var flag = confirm("Are you sure you want to clear all cities?");
+      if (flag) {
+        cities.length = 0;
+        LoadCitys();
+        document.getElementById("alert").innerHTML = " All cities cleared!";
+      }
+    }
+
+    function shortAsc() {
+      cities.sort();
+      LoadCitys();
+      document.getElementById("alert").innerHTML = " Sorted A-Z";
+    }
+
+    function shortDsc() {
+      cities.sort().reverse();
+      LoadCitys();
+      document.getElementById("alert").innerHTML = " Sorted Z-A";
+    }
+  </script>
+</head>
+
+<body onload="Bodyload()">
+  <div class="container">
+    <h2>Cities List</h2>
+    <span id="alert"></span>
+
+    <div class="input-section">
+      <label>New City:</label><br>
+      <input type="text" placeholder="Enter new city" id="txtCity">
+      <button onclick="AddClick()">Add</button>
+    </div>
+
+    <label>Your Cities:</label><br>
+    <button onclick="shortAsc()">A-Z</button>
+    <button onclick="shortDsc()">Z-A</button>
+
+    <div>
+      <select name="select" size="4" id="ListCity"></select>
+      <label id="CityCount"></label>
+    </div>
+
+    <div>
+      <button class="danger" onclick="removeCity()">Remove</button>
+      <button class="danger" onclick="removeAll()">Clear All</button>
+    </div>
+  </div>
+</body>
+</html>
