@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    var cities = ["Indore","HYD","Pune","Banglore","Chennai","Mumbai","Delhi"];
+    function LoadCitys(){
+      for(var city of cities){
+        var option = document.createElement("option");
+        option.value=city;
+        option.text=city;
+        document.getElementById("ListCity").appendChild(option);
+      }
+    }
+    function Bodyload(){
+      LoadCitys();
+    }
+  </script>
+</head>
+<body onload=" Bodyload()">
+      <h2>Array Manipuation</h2>
+      <div>
+        <label for="">Your cities</label>
+        <div >
+            <select style="width: 150px;" name="select" size="3" id="ListCity"></select>
+        </div>
+      </div>
+</body>
+</html>
