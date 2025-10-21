@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Fetching data form fake store</title>
+  <script>
+    function bodyLoad(){
+      fetch('https://fakestoreapi.com/products')
+      .then(function(responce){
+        return responce.json();
+      })
+      .then(function(products){
+          let container = document.getElementById("data");
+          for(var i=0;i<products.length;i++){
+            let post = `
+              <div style="border:2px solid black; margin:10px; padding:1px; padding-top: 0px; border-radius:8px; text-align: center; background-color: white; box-shadow: 2px 2px 10px gray;">
+                <h2 style="color: blue; background-color: lightblue;  ">id:${products[i].id}</h2>
+                <h3 style="color: green; background-color: lightgreen;">title:${products[i].title}</h3>
+                <h3 style="color: green;">price:${products[i].price}</h3>
+                <p style="color: gray;">discription:${products[i].description}</p>
+                <p style="color: gray;">catagory:${products[i].category}</p>
+                <img src=${products[i].image} alt="" style="width: 200px; height: 200px; object-fit: contain; margin-bottom: 10px;">
+              </div>
+            `
+            container.innerHTML=container.innerHTML + post;
+          }
+        })
+    }
+  </script>
+</head>
+<body onload="bodyLoad()">
+    <h1>fatching data from fake store</h1>
+    <div id="data" style="background-color: aqua;display: grid;grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));"></div>
+</body>
+</html>
