@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetching data</title>
+  <script>
+    function bodyLoad(){
+      fetch("./Fetch.json")
+      .then(function(responce){
+        return responce.json();
+      })
+      .then(function(product){
+        let container = document.getElementById("data");
+        container.innerHTML="";
+        for(let i=0;i<product.length;i++){
+          let post = `
+          <div style="border:1px solid gray; padding:10px; margin:10px; border-radius:8px;width:500px">
+               <h1>id:${product[i].id}</h1>
+               <h2>title:${product[i].title}</h2>
+               <h3>body:${product[i].body}</h3>
+            </div>
+          `;
+          container.innerHTML=container.innerHTML + post;
+        }
+      } )
+    }
+  </script>
+
+</head>
+<body onload="bodyLoad()">
+  <h1>Fetchingg</h1>
+     <div id="data"></div>
+</body>
+</html>

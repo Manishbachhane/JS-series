@@ -1,4 +1,3 @@
-
     // Amount slider
     function AmountChange() {
       document.getElementById("txtAmount").value = document.getElementById("rangeAmount").value;
